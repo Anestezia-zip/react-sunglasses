@@ -1,0 +1,151 @@
+
+
+.cart {
+	overflow: auto;
+	margin-top: 30px;
+	flex: 1;
+  
+	.cartItem {
+	  max-width: 325px;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  border: 1px solid #F3F3F3;
+	  border-radius: 20px;
+	  margin-bottom: 20px;
+  
+	  .cartItemLeftSide {
+		display: flex;
+  
+		& img {
+		  border-top-left-radius: 15px;
+		  border-bottom-left-radius: 15px;
+		  object-fit: cover;
+		}
+	  }
+  
+	  .cartItemDescr {
+		position: relative;
+		top: 10px;
+		left: 10px;
+	  }
+  
+	  .removeBtn {
+		opacity: .6;
+		border-color: transparent;
+		background-color: transparent;
+		margin-right: 8px;
+  
+		&:hover {
+		  opacity: 1;
+		}
+	  }
+	}
+
+}
+  
+.cartTotalBlock {	
+	& li {
+	  display: flex;
+	  align-items: flex-end;
+	  margin-bottom: 20px;
+	}
+
+	& div {
+	  flex: 1; // будет занимать всю допускаемую ширину
+	  height: 1px;
+	  border-bottom: 1px dashed #dfdfdf;
+	}
+}
+
+.overlayDrawer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1;
+}
+  
+.drawer {
+	position: absolute;
+	width: 385px;
+	height: 100%;
+	right: 0px;
+	background: #FFFFFF;
+	box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+  
+	.drawerClose {
+	  display: flex;
+	  justify-content: space-between;
+	}
+}
+  
+.greenBtn {
+	position: relative;
+	background: #9DD558;
+	padding: 18px 28px;
+	border: none;
+	border-radius: 10px;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 19px;
+	color: #FFFFFF;
+	margin-top: 6px;
+	transition: .1s ease-in-out;
+  
+	&:hover {
+	  background: lighten(#9dd558, 5%);
+  
+	  img {
+		transform: translateX(10px);
+	  }
+	}
+  
+	&:active {
+	  background: darken(#9dd558, 5%);
+	}
+  
+	& img {
+	  position: absolute;
+	  top: 20px;
+	  right: 30px;
+	  transition: transform .2s ease-in-out;
+	}
+  }
+  
+  .closeCartBtn {
+	width: 20px;
+}
+
+.emptyCartBtn {
+	padding: 18px 78px;
+
+	& img {
+		left: 20px;
+		transform: translateX(20px);
+	}
+}
+
+.emptyCart {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	& h2 {
+		margin-top: 20px;
+	}
+
+	& p {
+		opacity: .6;
+		width: 285px;
+		text-align: center;
+		margin-bottom: 40px;
+	}
+}
