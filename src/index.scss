@@ -37,6 +37,11 @@ code {
   padding: 43px;
   border-bottom: 1px solid #eaeaea;
 
+  &-link {
+    text-decoration: none;
+    color: black;
+  }
+
   &-left {
     display: flex;
     & img {

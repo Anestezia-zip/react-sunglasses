@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export const Header = (props) => {
 	return (
 		<header className="header">
-			<Link to="/">
+			<Link to="/" className='header-link'>
 				<div className="header-left">
 					<img width={58} height={46} src="/imgs/logo.jpg" alt="logo" />
 					<div>

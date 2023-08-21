@@ -1,6 +1,25 @@
 import { Card } from '../components/Card/Card';
 
-export function Home({ items, searchValue, setSearchValue, onChangeSearchValue, onAddToFavorites, onAddToCart }) {
+export function Home({ items, cartItems, searchValue, setSearchValue, onChangeSearchValue, onAddToFavorites, onAddToCart, isLoading }) {
+
+  const renderItems = () => {
+    const filtredItems = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+
+    return (
+      (isLoading ? [...Array(9)] : filtredItems)
+        .map((item, index) => (
+          <Card
+            key={index}
+            onClickFavorite={(addedFavoriteItem) => {onAddToFavorites(addedFavoriteItem)}}
+            onClickPlus={(addedCartItem) => {onAddToCart(addedCartItem)}}
+            addedItems={cartItems.some(addedCartItem => Number(addedCartItem.id) === Number(item.id))} // если хотя бы что-то было true, метод вернет true
+            loadingItems={isLoading}
+            {...item}
+          />
+        ))
+    )
+  }
+
 	return(
 		<main className="main">
         <section className="content">
@@ -18,22 +37,11 @@ export function Home({ items, searchValue, setSearchValue, onChangeSearchValue, 
 
             </div>
           </div>
-          <div className="cards">
-            {items
-              .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-              .map((item) => (
-              <Card
-                key={item.title}
-                title={item.title}
-                price={item.price}
-                imageUrl={item.imageUrl}
-                onClickFavorite={(addedFavoriteItem) => {onAddToFavorites(addedFavoriteItem)}}
-                onClickPlus={(addedCartItem) => {onAddToCart(addedCartItem)}}
-              />
-            ))}
+          <ul className="cards">
+            {renderItems()}
             
             {/* {products.map(p => <Product product={p} key={p.id}/>)} */}
-          </div>
+          </ul>
         </section>
       </main>
 	);

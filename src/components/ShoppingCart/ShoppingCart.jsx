@@ -16,7 +16,7 @@ export const ShoppingCart = ({ onCloseCart, onRemove, items = [] }) => {
 						<>
 							<ul className={s.cart}>
 								{items.map((obj) => (
-									<li className={s.cartItem}>
+									<li key={obj.id} className={s.cartItem}>
 										<div className={s.cartItemLeftSide}>
 											<img width={106} height={80} src={obj.imageUrl} alt="sunglasses cart img" />
 											<div className={s.cartItemDescr}>

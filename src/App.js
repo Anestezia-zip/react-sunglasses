@@ -47,27 +47,54 @@ function App() {
   const [favoritesItems, setFavoritesItems] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [cartOpened, setCartOpened] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('https://64dc9e62e64a8525a0f6d201.mockapi.io/items').then((response) => {
-      setItems(response.data)
-    });
-    axios.get('https://64dc9e62e64a8525a0f6d201.mockapi.io/cart').then((response) => {
-      setCartItems(response.data)
-    });
-    axios.get('https://64de0b39825d19d9bfb1f045.mockapi.io/favorites').then((response) => {
-      setFavoritesItems(response.data)
-    });
+    async function fetchData() {
+      const cartResponse = await axios.get('https://64dc9e62e64a8525a0f6d201.mockapi.io/cart')
+      const favResponse = await axios.get('https://64de0b39825d19d9bfb1f045.mockapi.io/favorites')
+      const itemsResponse = await axios.get('https://64dc9e62e64a8525a0f6d201.mockapi.io/items')
+
+      setIsLoading(false)
+      setCartItems(cartResponse.data)
+      setFavoritesItems(favResponse.data)
+      setItems(itemsResponse.data)
+    }
+
+    fetchData()
   }, [])
   
   const onAddToCart = (addedCartItem) => {
-    axios.post('https://64dc9e62e64a8525a0f6d201.mockapi.io/cart', addedCartItem)
-    setCartItems((prev) => [...prev, addedCartItem]) // сохраняем в стейте, выводим результат для пользователя
+    try {
+      if (cartItems.find(cartObj => Number(cartObj.id) === Number(addedCartItem.id))) {
+        axios.delete(`https://64dc9e62e64a8525a0f6d201.mockapi.io/cart/${addedCartItem.id}`)
+        setCartItems((prev) => prev.filter(item => Number(item.id) !== Number(addedCartItem.id)))
+      } else {
+        axios.post('https://64dc9e62e64a8525a0f6d201.mockapi.io/cart', addedCartItem)
+        setCartItems((prev) => [...prev, addedCartItem]) // сохраняем в стейте, выводим результат для пользователя
+      }
+    } catch (error) {
+      alert('Failed to add to cart')
+    }
+
+    //   } else {
+    //     const { data } = await axios.post('https://64dc9e62e64a8525a0f6d201.mockapi.io/cart', addedCartItem)
+    //     setCartItems((prev) => [...prev, data]) // сохраняем в стейте, выводим результат для пользователя
+    //   }
   }
 
-  const onAddToFavorites = (addedFavoriteItem) => {
-    axios.post('https://64de0b39825d19d9bfb1f045.mockapi.io/favorites', addedFavoriteItem)
-    setFavoritesItems((prev) => [...prev, addedFavoriteItem]) // сохраняем в стейте, выводим результат для пользователя
+  const onAddToFavorites = async (addedFavoriteItem) => {
+    try {
+      if (favoritesItems.find(favObj => favObj.id === addedFavoriteItem.id)) {
+        axios.delete(`https://64de0b39825d19d9bfb1f045.mockapi.io/favorites/${addedFavoriteItem.id}`)
+        setFavoritesItems((prev) => prev.filter(item => item.id !== addedFavoriteItem.id))
+      } else {
+        const { data } = await axios.post('https://64de0b39825d19d9bfb1f045.mockapi.io/favorites', addedFavoriteItem)
+        setFavoritesItems((prev) => [...prev, data]) // сохраняем в стейте, выводим результат для пользователя
+      }
+    } catch (error) {
+      alert('Failed to add to favorites')
+    }
   }
 
   const onRemoveItem = (id) => {
@@ -88,11 +115,13 @@ function App() {
           element={
             <Home
               items={items}
+              cartItems={cartItems}
               searchValue={searchValue}
               setSearchValue={setSearchValue}
               onChangeSearchValue={onChangeSearchValue}
               onAddToFavorites={onAddToFavorites}
               onAddToCart={onAddToCart}
+              isLoading={isLoading}
             />
           }
           exact
@@ -100,7 +129,7 @@ function App() {
 
         <Route path="/favorites"
           element={
-            <Favorites items={favoritesItems} />
+            <Favorites items={favoritesItems} onAddToFavorites={onAddToFavorites} />
           }
           exact
         />
