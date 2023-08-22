@@ -1,6 +1,6 @@
-import { Card } from '../components/Card/Card';
+import Card from '../components/Card/Card';
 
-export function Home({ items, cartItems, searchValue, setSearchValue, onChangeSearchValue, onAddToFavorites, onAddToCart, isLoading }) {
+function Home({ items, searchValue, setSearchValue, onChangeSearchValue, onAddToFavorites, onAddToCart, isLoading }) {
 
   const renderItems = () => {
     const filtredItems = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()));
@@ -10,9 +10,8 @@ export function Home({ items, cartItems, searchValue, setSearchValue, onChangeSe
         .map((item, index) => (
           <Card
             key={index}
-            onClickFavorite={(addedFavoriteItem) => {onAddToFavorites(addedFavoriteItem)}}
-            onClickPlus={(addedCartItem) => {onAddToCart(addedCartItem)}}
-            addedItems={cartItems.some(addedCartItem => Number(addedCartItem.id) === Number(item.id))} // если хотя бы что-то было true, метод вернет true
+            onClickFavorite={(obj) => {onAddToFavorites(obj)}}
+            onClickPlus={(obj) => {onAddToCart(obj)}}
             loadingItems={isLoading}
             {...item}
           />
@@ -39,11 +38,11 @@ export function Home({ items, cartItems, searchValue, setSearchValue, onChangeSe
           </div>
           <ul className="cards">
             {renderItems()}
-            
-            {/* {products.map(p => <Product product={p} key={p.id}/>)} */}
           </ul>
         </section>
       </main>
 	);
 }
+
+export default Home;
 
