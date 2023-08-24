@@ -15,13 +15,14 @@ function Card({
 }) {
   const { isItemAdded } = useContext(AppContext);
   const [isFavorite, setIsFavorite] = useState(favoritedItems);
+  const obj = { id, parentId: id, title, price, imageUrl };
 
   const onPlus = () => {
-    onClickPlus({ id, title, price, imageUrl });
+    onClickPlus(obj);
   };
 
   const onFavorite = () => {
-    onClickFavorite({ id, title, price, imageUrl });
+    onClickFavorite(obj);
     setIsFavorite(!isFavorite);
   };
 
@@ -44,12 +45,12 @@ function Card({
         </ContentLoader>
       ) : (
         <>
-          <div className={s.favoritesIcon} onClick={onFavorite}>
+          {onClickFavorite && <div className={s.favoritesIcon} onClick={onFavorite}>
             <i
               className="fa-solid fa-heart"
               style={{ color: isFavorite ? "#cf1717" : "" }}
             ></i>
-          </div>
+          </div>}
           <img
             width={320}
             height={250}
@@ -63,7 +64,7 @@ function Card({
               <span>Price: </span>
               <b>{price} €</b>
             </li>
-            <li>
+            {onClickPlus && <li>
               <button
                 style={{ border: "none", backgroundColor: "transparent" }}
                 onClick={onPlus}
@@ -79,7 +80,7 @@ function Card({
                   alt="Add button"
                 />
               </button>
-            </li>
+            </li>}
           </ul>
         </>
       )}

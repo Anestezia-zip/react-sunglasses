@@ -66,6 +66,18 @@
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 1;
+	visibility: hidden;
+	overflow: hidden;
+	opacity: 0;
+	transition: opacity .1s ease-in-out, visibility .1s ease-in-out;
+}
+
+.overlayVisible {
+	visibility: visible;
+	opacity: 1;
+	.drawer {
+		transform: translateX(0);
+	}
 }
   
 .drawer {
@@ -78,6 +90,8 @@
 	padding: 30px;
 	display: flex;
 	flex-direction: column;
+	transform: translateX(100%);
+	transition: transform .3s ease-in-out;
   
 	.drawerClose {
 	  display: flex;
@@ -97,6 +111,11 @@
 	color: #FFFFFF;
 	margin-top: 6px;
 	transition: .1s ease-in-out;
+
+	&:disabled {
+		background-color: #bebebe;
+		animation: button-loading .8s ease-in-out infinite;
+	}
   
 	&:hover {
 	  background: lighten(#9dd558, 5%);
@@ -149,3 +168,15 @@
 		margin-bottom: 40px;
 	}
 }
+
+@keyframes button-loading {
+	0% {
+	  opacity: 1;
+	}
+	50% {
+	  opacity: .7;
+	}
+	100% {
+	  opacity: 1;
+	}
+  }
