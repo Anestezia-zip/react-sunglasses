@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-sunglasses/static/css/main.d2a45644.css",
+    "main.js": "/react-sunglasses/static/js/main.32281a4c.js",
+    "index.html": "/react-sunglasses/index.html",
+    "main.d2a45644.css.map": "/react-sunglasses/static/css/main.d2a45644.css.map",
+    "main.32281a4c.js.map": "/react-sunglasses/static/js/main.32281a4c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d2a45644.css",
+    "static/js/main.32281a4c.js"
+  ]
+}
