@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/react-sunglasses/static/css/main.d2a45644.css",
-    "main.js": "/react-sunglasses/static/js/main.37173cc4.js",
+    "main.js": "/react-sunglasses/static/js/main.9fc6d03d.js",
     "index.html": "/react-sunglasses/index.html",
     "main.d2a45644.css.map": "/react-sunglasses/static/css/main.d2a45644.css.map",
-    "main.37173cc4.js.map": "/react-sunglasses/static/js/main.37173cc4.js.map"
+    "main.9fc6d03d.js.map": "/react-sunglasses/static/js/main.9fc6d03d.js.map"
   },
   "entrypoints": [
     "static/css/main.d2a45644.css",
-    "static/js/main.37173cc4.js"
+    "static/js/main.9fc6d03d.js"
   ]
 }
